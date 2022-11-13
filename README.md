@@ -2,7 +2,7 @@
 A Gradle plugin providing various utility methods and common code required to set up multi-version Minecraft mods via [architectury-loom] and [preprocessor].
 
 ### Dependency
-<img alt="version badge" src="https://badges.modcore.net/maven-metadata/v?metadataUrl=https://repo.polyfrost.cc/releases/gg/polyfrost/polyfrost-gradle-toolkit/maven-metadata.xml">
+<img alt="version badge" src="https://badges.modcore.net/maven-metadata/v?metadataUrl=https://repo.polyfrost.cc/releases/cc/polyfrost/polyfrost-gradle-toolkit/maven-metadata.xml">
 
 To use polyfrost-gradle-toolkit in your project, you need to add the following repositories to your `settings.gradle(.kts)` file:
 ```kotlin
