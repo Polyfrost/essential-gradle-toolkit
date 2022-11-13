@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "cc.polyfrost"
-version = "0.1.19"
+version = "0.1.20"
 
 java.sourceCompatibility = JavaVersion.VERSION_16
 java.targetCompatibility = JavaVersion.VERSION_16
