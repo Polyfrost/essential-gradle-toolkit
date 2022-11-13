@@ -75,6 +75,7 @@ revisions.add(Revision(
 // Revision 1, adds Legacy Fabric support
 revisions.add(Revision(
     yarn = mapOf(
+        11902 to "1.19.2+build.9:v2",
         11901 to "1.19.1+build.5:v2",
         11900 to "1.19+build.1:v2",
         11802 to "1.18.2+build.2:v2",
@@ -112,6 +113,7 @@ revisions.add(Revision(
     ),
     fabricLoader = "0.13.3",
     forge = mapOf(
+        11902 to "1.19.2-43.1.16",
         11900 to "1.19-41.0.63",
         11801 to "1.18.1-39.0.79",
         11701 to "1.17.1-37.0.112",
@@ -131,20 +133,20 @@ revisions.add(Revision(
     ),
 ))
 
-val revisionId = findProperty("essential.defaults.loom")?.toString() ?: throw GradleException("""
+val revisionId = findProperty("polyfrost.defaults.loom")?.toString() ?: throw GradleException("""
     No loom defaults version set.
-    You need to set `essential.defaults.loom` in the project's `gradle.properties` file to a specific revision,
+    You need to set `polyfrost.defaults.loom` in the project's `gradle.properties` file to a specific revision,
     so your build does not break when the defaults change.
     The recommended revision is always the most recent one, currently ${revisions.lastIndex}.
 """.trimIndent())
 
 val revision = revisions.getOrNull(revisionId.toIntOrNull() ?: -1)
-    ?: throw GradleException("Invalid revision `$revisionId` for `essential.defaults.loom`. Latest is ${revisions.lastIndex}.")
+    ?: throw GradleException("Invalid revision `$revisionId` for `polyfrost.defaults.loom`. Latest is ${revisions.lastIndex}.")
 
 fun prop(property: String, default: String?) =
-    findProperty("essential.defaults.loom.$property")?.toString()
+    findProperty("polyfrost.defaults.loom.$property")?.toString()
         ?: default
-        ?: throw GradleException("No default $property for ${platform.mcVersionStr}. Set `essential.defaults.loom.$property` in the project's `gradle.properties` or PR a new default.")
+        ?: throw GradleException("No default $property for ${platform.mcVersionStr}. Set `polyfrost.defaults.loom.$property` in the project's `gradle.properties` or PR a new default.")
 
 if (revisionId.toInt() >= 1 && platform.isLegacyFabric) {
     repositories {
