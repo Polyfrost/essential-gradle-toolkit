@@ -17,5 +17,5 @@ proguard = { module = "com.guardsquare:proguard-gradle", version.ref = "proguard
 preprocessor = { module = "com.github.replaymod:preprocessor", version.ref = "preprocessor" }
 asm = { module = "org.ow2.asm:asm-commons", version.ref = "asm" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
-archloom = { module = "gg.essential.loom:gg.essential.loom.gradle.plugin", version.ref = "archloom" }
+archloom = { module = "cc.polyfrost.loom:cc.polyfrost.loom.gradle.plugin", version.ref = "archloom" }
 archloomPack200 = { module = "dev.architectury.architectury-pack200:dev.architectury.architectury-pack200.gradle.plugin", version.ref = "archloomPack200" }

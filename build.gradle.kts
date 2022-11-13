@@ -3,19 +3,15 @@ plugins {
     `maven-publish`
 }
 
-group = "gg.essential"
-version = "0.1.16"
+group = "cc.polyfrost"
+version = "0.1.17"
 
 java.withSourcesJar()
 
 repositories {
     mavenCentral()
     gradlePluginPortal()
-    maven(url = "https://maven.fabricmc.net/")
-    maven(url = "https://maven.minecraftforge.net")
-    maven(url = "https://jitpack.io")
-    maven(url = "https://maven.architectury.dev/")
-    maven(url = "https://repo.essential.gg/repository/maven-public")
+    maven("https://repo.polyfrost.cc/releases")
 }
 
 dependencies {
@@ -39,14 +35,12 @@ dependencies {
 
 publishing {
     repositories {
-        val nexusUser = project.findProperty("nexus_user")
-        val nexusPassword = project.findProperty("nexus_password")
-        if (nexusUser != null && nexusPassword != null) {
-            maven("https://repo.essential.gg/repository/maven-releases/") {
-                name = "nexus-public"
+        if (project.hasProperty("releasesUsername") && project.hasProperty("releasesPassword")) {
+            maven("https://repo.polyfrost.cc/releases") {
+                name = "polyfrost"
                 credentials {
-                    username = nexusUser.toString()
-                    password = nexusPassword.toString()
+                    username = project.property("releasesUsername").toString()
+                    password = project.property("releasesPassword").toString()
                 }
             }
         }
