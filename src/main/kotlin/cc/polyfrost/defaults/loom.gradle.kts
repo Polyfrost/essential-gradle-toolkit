@@ -148,12 +148,9 @@ fun prop(property: String, default: String?) =
         ?: default
         ?: throw GradleException("No default $property for ${platform.mcVersionStr}. Set `polyfrost.defaults.loom.$property` in the project's `gradle.properties` or PR a new default.")
 
-if (revisionId.toInt() >= 1 && platform.isLegacyFabric) {
+if (revisions.indexOf(revision) >= 1 && platform.isLegacyFabric) {
     repositories {
-        maven("https://maven.legacyfabric.net")
-        if (isLinux || isMac) {
-            maven("https://maven.glass-launcher.net/babric")
-        }
+        maven("https://repo.polyfrost.cc/releases")
     }
 
     setupLoomPlugin(platform) { platform: Platform ->

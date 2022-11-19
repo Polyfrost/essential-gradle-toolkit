@@ -33,7 +33,7 @@ internal fun compatibleKotlinMetadataVersion(version: IntArray): IntArray {
     return version
 }
 
-fun Project.setupLoomPlugin(platform: Platform, block: LoomGradleExtensionAPI.(platform: Platform) -> Unit) {
+internal fun Project.setupLoomPlugin(platform: Platform, block: LoomGradleExtensionAPI.(platform: Platform) -> Unit) {
     extra.set("loom.platform", if (platform.isForge) "forge" else "fabric")
 
     apply<LoomGradlePluginBootstrap>()
