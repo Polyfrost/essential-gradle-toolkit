@@ -7,8 +7,6 @@ import cc.polyfrost.gradle.util.setupLoomPlugin
 plugins {
     id("cc.polyfrost.loom")
 }
-val isMac = System.getProperty("os.name").toLowerCase().contains("mac")
-val isLinux = System.getProperty("os.name").toLowerCase().contains("linux")
 val platform = Platform.of(project)
 
 data class Revision(
@@ -82,6 +80,7 @@ revisions.add(Revision(
         11801 to "1.18.1+build.22:v2",
         11701 to "1.17.1+build.39:v2",
         11700 to "1.17+build.13:v2",
+        11605 to "1.16.5+build.10",
         11604 to "1.16.4+build.6:v2",
         11602 to "1.16.2+build.1:v2",
         11601 to "1.16.1+build.17:v2",
@@ -97,6 +96,7 @@ revisions.add(Revision(
         10710 to "1.7.10+build.385:v2"
     ),
     mcp = mapOf(
+        11605 to "snapshot:20201028-1.16.3",
         11602 to "snapshot:20201028-1.16.3",
         11502 to "snapshot:20200220-1.15.1@zip",
         11404 to "snapshot:20190719-1.14.3",
@@ -115,8 +115,10 @@ revisions.add(Revision(
     forge = mapOf(
         11902 to "1.19.2-43.1.16",
         11900 to "1.19-41.0.63",
+        11802 to "1.18.2-40.1.0",
         11801 to "1.18.1-39.0.79",
         11701 to "1.17.1-37.0.112",
+        11605 to "1.16.5-36.2.34",
         11602 to "1.16.2-33.0.61",
         11502 to "1.15.2-31.1.18",
         11404 to "1.14.4-28.1.113",
@@ -163,8 +165,6 @@ if (revisions.indexOf(revision) >= 1 && platform.isLegacyFabric) {
     }
 }
 
-val lwjgl2 = platform.mcVersion < 11300
-
 dependencies {
     minecraft(prop("minecraft", "com.mojang:minecraft:${platform.mcVersionStr}"))
 
@@ -191,39 +191,6 @@ dependencies {
         loom.forge.pack200Provider.set(Pack200Adapter())
     }
 
-    if (platform.isLegacyFabric) {
-        if (lwjgl2) {
-            if (isLinux) {
-                implementation("org.lwjgl.lwjgl:lwjgl_util:2.9.4-babric.1")
-                implementation("org.lwjgl.lwjgl:lwjgl:2.9.4-babric.1")
-                implementation("org.lwjgl.lwjgl:lwjgl-platform:2.9.4-babric.1")
-            } else if (isMac) {
-                implementation("org.lwjgl.lwjgl:lwjgl_util:2.9.4-nightly-20150209")
-                implementation("org.lwjgl.lwjgl:lwjgl:2.9.4-nightly-20150209")
-                implementation("org.lwjgl.lwjgl:lwjgl-platform:2.9.4-nightly-20150209")
-            }
-        }
-    }
-}
-
-if (platform.isLegacyFabric && lwjgl2) {
-    configurations.all {
-        resolutionStrategy {
-            if (isLinux) {
-                dependencySubstitution {
-                    substitute(module("org.lwjgl.lwjgl:lwjgl_util:2.9.4-nightly-20150209")).using(module("org.lwjgl.lwjgl:lwjgl_util:2.9.4-babric.1"))
-                    substitute(module("org.lwjgl.lwjgl:lwjgl:2.9.4-nightly-20150209")).using(module("org.lwjgl.lwjgl:lwjgl:2.9.4-babric.1"))
-                }
-                force("org.lwjgl.lwjgl:lwjgl-platform:2.9.4-babric.1")
-            } else if (isMac) {
-                dependencySubstitution {
-                    substitute(module("org.lwjgl.lwjgl:lwjgl_util:2.9.2-nightly-201408222")).using(module("org.lwjgl.lwjgl:lwjgl_util:2.9.4-nightly-20150209"))
-                    substitute(module("org.lwjgl.lwjgl:lwjgl:2.9.2-nightly-201408222")).using(module("org.lwjgl.lwjgl:lwjgl:2.9.4-nightly-20150209"))
-                }
-                force("org.lwjgl.lwjgl:lwjgl-platform:2.9.4-nightly-20150209")
-            }
-        }
-    }
 }
 
 // https://github.com/architectury/architectury-loom/pull/10

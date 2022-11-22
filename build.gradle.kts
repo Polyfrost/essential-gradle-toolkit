@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "cc.polyfrost"
-version = "0.1.21"
+version = "0.1.22"
 
 java.sourceCompatibility = JavaVersion.VERSION_16
 java.targetCompatibility = JavaVersion.VERSION_16
@@ -23,8 +23,6 @@ tasks.compileKotlin {
 java.withSourcesJar()
 
 repositories {
-    mavenCentral()
-    gradlePluginPortal()
     maven("https://repo.polyfrost.cc/releases")
 }
 

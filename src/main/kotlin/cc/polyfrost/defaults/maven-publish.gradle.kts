@@ -1,21 +1,25 @@
-package cc.polyfrost.gradle.util
+package cc.polyfrost.defaults
 
 import cc.polyfrost.gradle.multiversion.Platform
 import gradle.kotlin.dsl.accessors._11d1d69a77e50fb2b4b174f119312f10.loom
-import org.gradle.api.GradleException
-import org.gradle.api.Project
-import org.gradle.api.publish.PublishingExtension
-import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.api.publish.tasks.GenerateModuleMetadata
-import org.gradle.kotlin.dsl.getValue
-import org.gradle.kotlin.dsl.maven
-import org.gradle.kotlin.dsl.register
-import org.gradle.kotlin.dsl.withType
+import org.gradle.kotlin.dsl.`maven-publish`
 
-fun Project.setupPublishing(mavenUrl: String, mavenName: String, username: String, password: String) {
-    if (mavenUrl.isBlank() || mavenName.isBlank() || username.isBlank() || password.isBlank()) {
-        throw GradleException("None of the maven publishing properties can be blank.")
-    }
+plugins {
+    `maven-publish`
+}
+
+val mavenUrl = findProperty("polyfrost.publishing.maven.url")?.toString() ?: throw GradleException("""
+    No maven URL specified.
+    You need to set `polyfrost.publishing.maven.url` in the project's `gradle.properties` file (e.g "https://repo.polyfrost.cc/releases/").
+""".trimIndent())
+val mavenName = findProperty("polyfrost.publishing.maven.name")?.toString() ?: throw GradleException("""
+    No maven name specified.
+    You need to set `polyfrost.publishing.maven.name` in the project's `gradle.properties` file (e.g "Polyfrost Maven").
+""".trimIndent())
+val mavenUsername = findProperty("polyfrost.publishing.maven.username")?.toString()
+val mavenPassword = findProperty("polyfrost.publishing.maven.password")?.toString()
+
+if (mavenUsername?.isNotBlank() == true && mavenPassword?.isNotBlank() == true) {
     extensions.configure<PublishingExtension>("publishing") {
         publications {
             register<MavenPublication>("maven") {
@@ -35,8 +39,8 @@ fun Project.setupPublishing(mavenUrl: String, mavenName: String, username: Strin
             maven(mavenUrl) {
                 name = mavenName
                 credentials {
-                    this@credentials.username = username
-                    this@credentials.password = password
+                    this@credentials.username = mavenUsername
+                    this@credentials.password = mavenPassword
                 }
             }
         }

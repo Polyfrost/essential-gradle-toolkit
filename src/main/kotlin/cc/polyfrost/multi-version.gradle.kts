@@ -4,6 +4,8 @@ import com.replaymod.gradle.preprocess.PreprocessExtension
 import com.replaymod.gradle.preprocess.PreprocessPlugin
 import cc.polyfrost.gradle.multiversion.Platform
 import cc.polyfrost.gradle.util.setupLoomPlugin
+import gradle.kotlin.dsl.accessors._11d1d69a77e50fb2b4b174f119312f10.base
+import gradle.kotlin.dsl.accessors._11d1d69a77e50fb2b4b174f119312f10.processResources
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -32,6 +34,7 @@ fun setupPreprocessPlugin() {
         vars.put("MC", mcVersion)
         vars.put("FABRIC", if (platform.isFabric) 1 else 0)
         vars.put("FORGE", if (platform.isForge) 1 else 0)
+        vars.put("MODERN", if (platform.mcVersion >= 11300) 1 else 0)
     }
 }
 
@@ -60,8 +63,11 @@ fun configureJavaVersion() {
 fun configureResources() {
     tasks.processResources {
         // We define certain Kotlin/Groovy-style expansions to be used in the platform-specific mod metadata files
-        val expansions = mapOf(
+        val expansions = mutableMapOf(
+            "name" to project.name,
             "version" to project.version,
+            "java" to platform.javaVersion.majorVersion,
+            "java_level" to "JAVA_" + platform.javaVersion.majorVersion,
             "mcVersionStr" to platform.mcVersionStr,
             // New forge needs the version to be exactly `${file.jarVersion}` to not explode in dev but that
             // also qualifies for replacement here, so we need to handle this ugly case.
@@ -69,10 +75,14 @@ fun configureResources() {
             "file" to mapOf("jarVersion" to project.version.toString().let { if (it[0].isDigit()) it else "0.$it" }),
         )
 
+        if (hasProperty("mod_id")) {
+            expansions["id"] = property("mod_id")
+        }
+
         // TODO is this required? are the FileCopyDetails not part of the input already?
         inputs.property("mod_version_expansions", expansions)
 
-        filesMatching(listOf("mcmod.info", "META-INF/mods.toml", "fabric.mod.json")) {
+        filesMatching(listOf("mcmod.info", "META-INF/mods.toml", "mixins.*.json", "fabric.mod.json")) {
             expand(expansions)
         }
 

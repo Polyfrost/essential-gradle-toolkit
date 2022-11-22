@@ -11,9 +11,9 @@ fun Project.versionFromBuildIdAndBranch(): String {
     return version
 }
 
-private fun Project.buildId(): String? = project.properties["BUILD_ID"]?.toString()
+fun Project.buildId(): String? = project.properties["BUILD_ID"]?.toString()
 
-private fun Project.branch(): String = project.properties["branch"]?.toString() ?: try {
+fun Project.branch(): String = project.properties["branch"]?.toString() ?: try {
     val stdout = java.io.ByteArrayOutputStream()
     exec {
         commandLine("git", "rev-parse", "--abbrev-ref", "HEAD")
