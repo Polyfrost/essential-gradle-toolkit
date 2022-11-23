@@ -75,10 +75,6 @@ fun configureResources() {
             "file" to mapOf("jarVersion" to project.version.toString().let { if (it[0].isDigit()) it else "0.$it" }),
         )
 
-        if (hasProperty("mod_id")) {
-            expansions["id"] = property("mod_id")
-        }
-
         // TODO is this required? are the FileCopyDetails not part of the input already?
         inputs.property("mod_version_expansions", expansions)
 
