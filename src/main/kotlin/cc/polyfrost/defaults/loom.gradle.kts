@@ -73,6 +73,7 @@ revisions.add(Revision(
 // Revision 1, adds Legacy Fabric support
 revisions.add(Revision(
     yarn = mapOf(
+        11903 to "1.19.3+build.2:v2",
         11902 to "1.19.2+build.9:v2",
         11901 to "1.19.1+build.5:v2",
         11900 to "1.19+build.1:v2",
