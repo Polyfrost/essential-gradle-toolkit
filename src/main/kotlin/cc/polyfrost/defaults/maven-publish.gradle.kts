@@ -1,8 +1,7 @@
 package cc.polyfrost.defaults
 
 import cc.polyfrost.gradle.multiversion.Platform
-import gradle.kotlin.dsl.accessors._11d1d69a77e50fb2b4b174f119312f10.loom
-import org.gradle.kotlin.dsl.`maven-publish`
+import net.fabricmc.loom.api.LoomGradleExtensionAPI
 
 plugins {
     `maven-publish`
@@ -54,7 +53,7 @@ if (mavenUsername?.isNotBlank() == true && mavenPassword?.isNotBlank() == true) 
             // (does not sound like best practise but that is how most mods do it and there isn't really any diversity in
             // mappings anyway).
             // To do that, we first stop loom from adding the remapped artifact,
-            loom.setupRemappedVariants.set(false)
+            (extensions.getByName("loom") as LoomGradleExtensionAPI).setupRemappedVariants.set(false)
             // then remove the default artifact (which has a -dev classifier) from all configurations and finally re-add
             // it without the dev classifier.
             afterEvaluate {

@@ -1,11 +1,9 @@
 package cc.polyfrost
 
-import com.replaymod.gradle.preprocess.PreprocessExtension
-import com.replaymod.gradle.preprocess.PreprocessPlugin
 import cc.polyfrost.gradle.multiversion.Platform
 import cc.polyfrost.gradle.util.setupLoomPlugin
-import gradle.kotlin.dsl.accessors._11d1d69a77e50fb2b4b174f119312f10.base
-import gradle.kotlin.dsl.accessors._11d1d69a77e50fb2b4b174f119312f10.processResources
+import com.replaymod.gradle.preprocess.PreprocessExtension
+import com.replaymod.gradle.preprocess.PreprocessPlugin
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -46,7 +44,7 @@ fun configureJavaVersion() {
     pluginManager.withPlugin("kotlin") {
         configure<KotlinJvmProjectExtension> {
             jvmToolchain {
-                (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(platform.javaVersion.majorVersion))
+                this.languageVersion.set(JavaLanguageVersion.of(platform.javaVersion.majorVersion))
             }
         }
 
@@ -61,7 +59,7 @@ fun configureJavaVersion() {
 }
 
 fun configureResources() {
-    tasks.processResources {
+    tasks.named<ProcessResources>("processResources") {
         // We define certain Kotlin/Groovy-style expansions to be used in the platform-specific mod metadata files
         val expansions = mutableMapOf(
             "name" to project.name,
@@ -97,6 +95,7 @@ fun inheritConfigurationFrom(parent: Project) {
 
     // Inherit base archives name from parent, suffixed with the project name
     val parentBase = parent.extensions.findByType<BasePluginExtension>()
+    val base = extensions.getByName("base") as BasePluginExtension
     if (parentBase != null) {
         base.archivesName.convention(parentBase.archivesName.map { "$it ${project.name}" })
     } else {
