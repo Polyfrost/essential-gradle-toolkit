@@ -6,6 +6,7 @@ import cc.polyfrost.gradle.util.setupLoomPlugin
 
 plugins {
     id("cc.polyfrost.loom")
+    id("io.github.p03w.machete")
 }
 val platform = Platform.of(project)
 
@@ -165,7 +166,7 @@ val revision = revisions.getOrNull(revisionId.toIntOrNull() ?: -1)
 fun prop(property: String, default: String?) =
     findProperty("polyfrost.defaults.loom.$property")?.toString()
         ?: default
-        ?: throw GradleException("No default $property for ${platform.mcVersionStr}. Set `polyfrost.defaults.loom.$property` in the project's `gradle.properties` or PR a new default.")
+        ?: throw GradleException("No default $property for ${platform.mcVersionStr} ${platform.loaderStr}. Set `polyfrost.defaults.loom.$property` in the project's `gradle.properties` or PR a new default.")
 
 if (revisions.indexOf(revision) >= 1 && platform.isLegacyFabric) {
     repositories {
