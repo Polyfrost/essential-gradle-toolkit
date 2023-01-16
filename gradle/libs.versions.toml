@@ -11,7 +11,7 @@ guava = "30.1.1-jre"
 minotaur = "2.4.+"
 cursegradle = "2.+"
 github-release = "2.+"
-machete = "2.+"
+machete = "1.2.0"
 
 [libraries]
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

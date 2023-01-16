@@ -44,7 +44,7 @@ fun configureJavaVersion() {
     pluginManager.withPlugin("kotlin") {
         configure<KotlinJvmProjectExtension> {
             jvmToolchain {
-                this.languageVersion.set(JavaLanguageVersion.of(platform.javaVersion.majorVersion))
+                (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(platform.javaVersion.majorVersion))
             }
         }
 
