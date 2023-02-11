@@ -31,7 +31,6 @@ dependencies {
     implementation(localGroovy())
 
     api(libs.archloom)
-    implementation(libs.archloomPack200)
 
     compileOnly(libs.kotlin.gradlePlugin)
     implementation(libs.kotlinx.binaryCompatibilityValidator)
@@ -53,11 +52,8 @@ publishing {
     repositories {
         if (project.hasProperty("releasesUsername") && project.hasProperty("releasesPassword")) {
             maven("https://repo.polyfrost.cc/releases") {
-                name = "polyfrost"
-                credentials {
-                    username = project.property("releasesUsername").toString()
-                    password = project.property("releasesPassword").toString()
-                }
+                name = "poly"
+                credentials(PasswordCredentials::class)
             }
         }
     }

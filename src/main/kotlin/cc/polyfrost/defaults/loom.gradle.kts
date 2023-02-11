@@ -1,11 +1,11 @@
 package cc.polyfrost.defaults
 
-import dev.architectury.pack200.java.Pack200Adapter
 import cc.polyfrost.gradle.multiversion.Platform
 import cc.polyfrost.gradle.util.setupLoomPlugin
+import gradle.kotlin.dsl.accessors._e93edb912e40357e33c12e443e5fbd35.*
 
 plugins {
-    id("cc.polyfrost.loom")
+    id("cc.polyfrost.textile.loom")
     id("io.github.p03w.machete")
 }
 val platform = Platform.of(project)
@@ -176,8 +176,11 @@ if (revisions.indexOf(revision) >= 1 && platform.isLegacyFabric) {
     setupLoomPlugin(platform) { platform: Platform ->
         intermediaryUrl.set("https://maven.legacyfabric.net/net/legacyfabric/intermediary/%1\$s/intermediary-%1\$s-v2.jar")
         if (platform.mcVersion < 10800) {
-            launchConfigs.named("client") {
-                arg("--userProperties", "{}")
+            runs {
+                named("client") {
+                    programArg("-Dmixin.debug.export=true")
+                    programArg("--userProperties={}")
+                }
             }
         }
     }
@@ -205,8 +208,6 @@ dependencies {
         modImplementation(prop("fabric-loader", "net.fabricmc:fabric-loader:${revision.fabricLoader}"))
     } else {
         "forge"(prop("forge", revision.forge[platform.mcVersion]?.let { "net.minecraftforge:forge:$it" }))
-
-        loom.forge.pack200Provider.set(Pack200Adapter())
     }
 
 }
