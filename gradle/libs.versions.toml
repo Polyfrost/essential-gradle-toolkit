@@ -11,7 +11,6 @@ guava = "30.1.1-jre"
 minotaur = "2.4.+"
 cursegradle = "2.+"
 github-release = "2.+"
-machete = "1.2.0"
 
 [libraries]
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -26,4 +25,3 @@ archloomPack200 = { module = "dev.architectury.architectury-pack200:dev.architec
 minotaur = { module = "com.modrinth.minotaur:com.modrinth.minotaur.gradle.plugin", version.ref = "minotaur" }
 cursegradle = { module = "me.hypherionmc.cursegradle:me.hypherionmc.cursegradle.gradle.plugin", version.ref = "cursegradle" }
 github-release = { module = "com.github.breadmoirai.github-release:com.github.breadmoirai.github-release.gradle.plugin", version.ref = "github-release" }
-machete = { module = "io.github.p03w.machete:io.github.p03w.machete.gradle.plugin", version.ref = "machete" }

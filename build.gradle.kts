@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "cc.polyfrost"
-version = "0.1.27"
+version = "0.1.28"
 
 java.sourceCompatibility = JavaVersion.VERSION_16
 java.targetCompatibility = JavaVersion.VERSION_16
@@ -43,7 +43,6 @@ dependencies {
     implementation(libs.asm)
     implementation(libs.guava)
     implementation(libs.kotlinx.metadata.jvm)
-    implementation(libs.machete)
     //implementation(libs.minotaur)
     //implementation(libs.cursegradle)
     //implementation(libs.github.release)

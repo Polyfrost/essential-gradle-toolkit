@@ -6,7 +6,6 @@ import cc.polyfrost.gradle.util.setupLoomPlugin
 
 plugins {
     id("cc.polyfrost.loom")
-    id("io.github.p03w.machete")
 }
 val platform = Platform.of(project)
 
