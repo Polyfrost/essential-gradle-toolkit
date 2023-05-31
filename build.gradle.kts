@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "cc.polyfrost"
-version = "0.1.28"
+version = "0.1.29"
 
 java.sourceCompatibility = JavaVersion.VERSION_16
 java.targetCompatibility = JavaVersion.VERSION_16
@@ -38,7 +38,7 @@ dependencies {
     implementation(libs.proguard) {
         exclude(group = "org.jetbrains.kotlin")
     }
-    implementation("gradle.plugin.com.github.jengelman.gradle.plugins:shadow:7.0.0")
+    implementation(libs.shadow)
     api(libs.preprocessor)
     implementation(libs.asm)
     implementation(libs.guava)
