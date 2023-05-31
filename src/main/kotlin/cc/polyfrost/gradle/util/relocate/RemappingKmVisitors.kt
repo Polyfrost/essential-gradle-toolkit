@@ -61,7 +61,9 @@ import kotlinx.metadata.jvm.JvmPropertyExtensionVisitor
 import kotlinx.metadata.jvm.JvmTypeExtensionVisitor
 import kotlinx.metadata.jvm.JvmTypeParameterExtensionVisitor
 import org.objectweb.asm.commons.Remapper
+import kotlin.contracts.ExperimentalContracts
 
+@OptIn(ExperimentalContracts::class)
 internal class RemappingKmVisitors(private val remapper: Remapper) {
     private fun remapJvmMethodSignature(signature: JvmMethodSignature?): JvmMethodSignature? {
         if (signature != null) {
