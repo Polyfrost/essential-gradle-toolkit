@@ -4,8 +4,8 @@ import cc.polyfrost.gradle.util.compatibleKotlinMetadataVersion
 import kotlinx.metadata.KmClass
 import kotlinx.metadata.KmDeclarationContainer
 import kotlinx.metadata.KmPackage
-import kotlinx.metadata.jvm.Metadata
 import kotlinx.metadata.jvm.KotlinClassMetadata
+import kotlinx.metadata.jvm.Metadata
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.bundling.AbstractArchiveTask
 import org.objectweb.asm.*
