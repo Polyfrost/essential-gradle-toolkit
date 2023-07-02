@@ -5,7 +5,7 @@ import cc.polyfrost.gradle.multiversion.Platform
 import cc.polyfrost.gradle.util.setupLoomPlugin
 
 plugins {
-    id("cc.polyfrost.loom")
+    id("gg.essential.loom")
 }
 val platform = Platform.of(project)
 
@@ -189,8 +189,8 @@ if (revisions.indexOf(revision) >= 1 && platform.isLegacyFabric) {
     setupLoomPlugin(platform) { platform: Platform ->
         intermediaryUrl.set("https://maven.legacyfabric.net/net/legacyfabric/intermediary/%1\$s/intermediary-%1\$s-v2.jar")
         if (platform.mcVersion < 10800) {
-            launchConfigs.named("client") {
-                arg("--userProperties", "{}")
+            runs.named("client") {
+                programArgs("--userProperties", "{}")
             }
         }
     }

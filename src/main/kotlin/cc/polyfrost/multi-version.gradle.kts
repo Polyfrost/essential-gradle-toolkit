@@ -44,7 +44,7 @@ fun configureJavaVersion() {
     pluginManager.withPlugin("kotlin") {
         configure<KotlinJvmProjectExtension> {
             jvmToolchain {
-                (this as JavaToolchainSpec).languageVersion.set(JavaLanguageVersion.of(platform.javaVersion.majorVersion))
+                languageVersion.set(JavaLanguageVersion.of(platform.javaVersion.majorVersion))
             }
         }
 
@@ -108,7 +108,7 @@ fun inheritConfigurationFrom(parent: Project) {
                 if (moduleName == null && "-module-name" !in freeCompilerArgs) {
                     moduleName = project.findProperty("baseArtifactId")?.toString()
                             ?: parentBase?.archivesName?.orNull
-                            ?: parent.name.toLowerCase()
+                            ?: parent.name.lowercase()
                 }
             }
         }

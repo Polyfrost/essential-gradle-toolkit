@@ -12,7 +12,7 @@ data class Platform(
 ) {
     val mcVersion = mcMajor * 10000 + mcMinor * 100 + mcPatch
     val mcVersionStr = listOf(mcMajor, mcMinor, mcPatch).dropLastWhile { it == 0 }.joinToString(".")
-    val loaderStr = loader.toString().toLowerCase()
+    val loaderStr = loader.toString().lowercase()
 
     val isFabric = loader == Loader.Fabric
     val isForge = loader == Loader.Forge
@@ -64,7 +64,7 @@ data class Platform(
         private fun guessLoader(project: Project): Loader {
             // Try configured loom.platform value first
             val loomPlatform = project.findProperty("loom.platform")?.toString()
-            when (loomPlatform?.toLowerCase()) {
+            when (loomPlatform?.lowercase()) {
                 "fabric" -> return Loader.Fabric
                 "forge" -> return Loader.Forge
                 null -> {}
@@ -81,7 +81,7 @@ data class Platform(
             throw GradleException("Failed to infer mod loader for project \"${project.path}\".\n" +
                     "Either set \"loom.platform\" in its \"gradle.properties\"," +
                     "or change the project name to include the platform.\n" +
-                    "Valid values: ${Loader.values().joinToString { it.name.toLowerCase() }}")
+                    "Valid values: ${Loader.values().joinToString { it.name.lowercase() }}")
         }
     }
 }

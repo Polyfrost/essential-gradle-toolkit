@@ -26,7 +26,7 @@ if (mavenUsername?.isNotBlank() == true && mavenPassword?.isNotBlank() == true) 
 
                 pluginManager.withPlugin("cc.polyfrost.multi-version") {
                     val platform: Platform by extensions
-                    val baseArtifactId = (if (parent == rootProject) rootProject.name.toLowerCase() else null)
+                    val baseArtifactId = (if (parent == rootProject) rootProject.name.lowercase() else null)
                         ?: project.findProperty("baseArtifactId")?.toString()
                         ?: throw GradleException("No default base maven artifact id found. Set `baseArtifactId` in the `gradle.properties` file of the multi-version-root project.")
                     artifactId = "$baseArtifactId-$platform"
@@ -42,43 +42,6 @@ if (mavenUsername?.isNotBlank() == true && mavenPassword?.isNotBlank() == true) 
                     this@credentials.password = mavenPassword
                 }
             }
-        }
-    }
-
-    pluginManager.withPlugin("cc.polyfrost.multi-version") {
-        val platform: Platform by extensions
-
-        if (platform.isLegacyForge) {
-            // For legacy Forge we publish the dev jar rather than the srg mapped one, so the consumers do not need to deobf
-            // (does not sound like best practise but that is how most mods do it and there isn't really any diversity in
-            // mappings anyway).
-            // To do that, we first stop loom from adding the remapped artifact,
-            (extensions.getByName("loom") as LoomGradleExtensionAPI).setupRemappedVariants.set(false)
-            // then remove the default artifact (which has a -dev classifier) from all configurations and finally re-add
-            // it without the dev classifier.
-            afterEvaluate {
-                configurations.all {
-                    if (artifacts.removeIf { it.classifier == "dev" }) {
-                        project.artifacts.add(name, tasks.named("jar")) {
-                            classifier = null
-                        }
-                    }
-                    // And the same for the sources jar
-                    if (artifacts.removeIf { it.classifier == "sources-dev" }) {
-                        project.artifacts.add(name, tasks.named("sourcesJar")) {
-                            classifier = "sources"
-                        }
-                    }
-                }
-            }
-        }
-
-        // Dependencies added to modApi get automatically added to apiElements by Loom, but it does not add them to
-        // runtimeElements, which causes issues when another project depends on this one via one of the mod* configurations
-        // because those seem to be reading the runtimeElements.
-        // To work around that, we'll just disable the Gradle Module Metadata and just use maven pom only.
-        tasks.withType<GenerateModuleMetadata> {
-            enabled = false
         }
     }
 }

@@ -25,6 +25,8 @@
 package cc.polyfrost.gradle.util.relocate
 
 import cc.polyfrost.gradle.util.compatibleKotlinMetadataVersion
+import kotlinx.metadata.jvm.KotlinClassMetadata
+import kotlinx.metadata.jvm.Metadata
 // TODO ideally we shouldn't be depending on loom internals but the referenced class depends on a bunch of internals of
 //  kotlinx-metadata-jvm because the api is insufficient, meaning some internal dependencies will be going on anyway so
 //  we may as well just let loom deal with it instead of having to copy over loom's updates every time
