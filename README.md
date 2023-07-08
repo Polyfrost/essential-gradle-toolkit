@@ -190,7 +190,7 @@ versions/*/api/
 Applies various (partially opinionated) defaults to your project:
 - [repo](#ccpolyfrostdefaultsrepo)
 - [java](#ccpolyfrostdefaultsjava) (if the `java` plugin is applied)
-- [loom](#ccpolyfrostdefaultsloom) (if the `gg.essential.loom` plugin is applied)
+- [loom](#ccpolyfrostdefaultsloom) (if the `cc.polyfrost.loom` plugin is applied)
 
 ### cc.polyfrost.defaults.java
 
@@ -199,7 +199,7 @@ Sets defaults related to the `java` Gradle plugin:
 
 ### cc.polyfrost.defaults.loom
 
-Sets defaults related to the `gg.essential.loom` ([architectury-loom]) Gradle plugin.
+Sets defaults related to the `cc.polyfrost.loom` ([architectury-loom]) Gradle plugin.
 You can overwrite all of these by setting the given property in the project's `gradle.properties`:
 - Minecraft version (`polyfrost.defaults.loom.minecraft`)
 - Mappings (`polyfrost.defaults.loom.mappings`), special values:
