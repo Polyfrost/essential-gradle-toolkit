@@ -1,4 +1,4 @@
-package cc.polyfrost.gradle.util
+package org.polyfrost.gradle.util
 
 import org.gradle.api.Project
 

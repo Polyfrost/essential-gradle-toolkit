@@ -1,7 +1,7 @@
-package cc.polyfrost
+package org.polyfrost
 
-import cc.polyfrost.gradle.multiversion.apivalidation.ExtractApiFile
-import cc.polyfrost.gradle.multiversion.apivalidation.MergeApiFiles
+import org.polyfrost.gradle.multiversion.apivalidation.ExtractApiFile
+import org.polyfrost.gradle.multiversion.apivalidation.MergeApiFiles
 import org.gradle.api.tasks.Sync
 
 plugins {

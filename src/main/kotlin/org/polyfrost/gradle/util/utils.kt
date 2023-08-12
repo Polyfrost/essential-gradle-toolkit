@@ -1,6 +1,6 @@
-package cc.polyfrost.gradle.util
+package org.polyfrost.gradle.util
 
-import cc.polyfrost.gradle.multiversion.Platform
+import org.polyfrost.gradle.multiversion.Platform
 import net.fabricmc.loom.api.LoomGradleExtensionAPI
 import net.fabricmc.loom.bootstrap.LoomGradlePluginBootstrap
 import org.gradle.api.GradleException

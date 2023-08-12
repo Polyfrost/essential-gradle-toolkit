@@ -1,4 +1,4 @@
-package cc.polyfrost.defaults
+package org.polyfrost.defaults
 
 import org.gradle.api.tasks.compile.JavaCompile
 

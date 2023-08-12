@@ -1,4 +1,4 @@
-package cc.polyfrost.defaults
+package org.polyfrost.defaults
 
 repositories {
     maven("https://repo.polyfrost.cc/releases")

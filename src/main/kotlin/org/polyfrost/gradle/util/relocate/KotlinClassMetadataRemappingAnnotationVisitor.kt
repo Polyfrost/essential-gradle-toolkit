@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 
-package cc.polyfrost.gradle.util.relocate
+package org.polyfrost.gradle.util.relocate
 
-import cc.polyfrost.gradle.util.compatibleKotlinMetadataVersion
+import org.polyfrost.gradle.util.compatibleKotlinMetadataVersion
 import kotlinx.metadata.jvm.KotlinClassMetadata
 import kotlinx.metadata.jvm.Metadata
 // TODO ideally we shouldn't be depending on loom internals but the referenced class depends on a bunch of internals of

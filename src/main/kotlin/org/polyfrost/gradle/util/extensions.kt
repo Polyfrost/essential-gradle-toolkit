@@ -1,4 +1,4 @@
-package cc.polyfrost.gradle.util
+package org.polyfrost.gradle.util
 
 import net.fabricmc.loom.api.LoomGradleExtensionAPI
 import org.gradle.api.tasks.TaskProvider

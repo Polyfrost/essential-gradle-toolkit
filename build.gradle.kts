@@ -3,8 +3,8 @@ plugins {
     `maven-publish`
 }
 
-group = "cc.polyfrost"
-version = "0.2.5"
+group = "org.polyfrost"
+version = "0.2.6"
 
 java.sourceCompatibility = JavaVersion.VERSION_16
 java.targetCompatibility = JavaVersion.VERSION_16

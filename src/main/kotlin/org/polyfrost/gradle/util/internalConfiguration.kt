@@ -1,6 +1,6 @@
-package cc.polyfrost.gradle.util
+package org.polyfrost.gradle.util
 
-import cc.polyfrost.gradle.util.RelocationTransform.Companion.registerRelocationAttribute
+import org.polyfrost.gradle.util.RelocationTransform.Companion.registerRelocationAttribute
 import org.gradle.api.Project
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.plugins.JavaPlugin

@@ -1,6 +1,6 @@
-package cc.polyfrost.gradle.util
+package org.polyfrost.gradle.util
 
-import cc.polyfrost.gradle.util.relocate.KotlinMetadataRemappingClassVisitor
+import org.polyfrost.gradle.util.relocate.KotlinMetadataRemappingClassVisitor
 import org.gradle.api.Project
 import org.gradle.api.artifacts.transform.InputArtifact
 import org.gradle.api.artifacts.transform.TransformAction

@@ -1,8 +1,8 @@
-package cc.polyfrost.defaults
+package org.polyfrost.defaults
 
 import dev.architectury.pack200.java.Pack200Adapter
-import cc.polyfrost.gradle.multiversion.Platform
-import cc.polyfrost.gradle.util.setupLoomPlugin
+import org.polyfrost.gradle.multiversion.Platform
+import org.polyfrost.gradle.util.setupLoomPlugin
 
 plugins {
     id("gg.essential.loom")

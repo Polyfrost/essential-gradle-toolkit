@@ -1,7 +1,7 @@
-package cc.polyfrost
+package org.polyfrost
 
-import cc.polyfrost.gradle.multiversion.Platform
-import cc.polyfrost.gradle.util.setupLoomPlugin
+import org.polyfrost.gradle.multiversion.Platform
+import org.polyfrost.gradle.util.setupLoomPlugin
 import com.replaymod.gradle.preprocess.PreprocessExtension
 import com.replaymod.gradle.preprocess.PreprocessPlugin
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension

@@ -1,4 +1,4 @@
-package cc.polyfrost.gradle.util
+package org.polyfrost.gradle.util
 
 import com.google.common.base.Stopwatch
 import org.gradle.api.Project

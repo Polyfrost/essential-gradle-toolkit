@@ -1,6 +1,6 @@
-package cc.polyfrost
+package org.polyfrost
 
-import cc.polyfrost.gradle.util.checkJavaVersion
+import org.polyfrost.gradle.util.checkJavaVersion
 
 plugins {
     id("com.replaymod.preprocess-root")

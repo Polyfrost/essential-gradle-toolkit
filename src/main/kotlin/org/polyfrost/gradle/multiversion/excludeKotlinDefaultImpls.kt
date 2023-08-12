@@ -1,4 +1,4 @@
-package cc.polyfrost.gradle.multiversion
+package org.polyfrost.gradle.multiversion
 
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.bundling.AbstractArchiveTask

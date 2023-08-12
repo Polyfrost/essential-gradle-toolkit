@@ -1,4 +1,4 @@
-package cc.polyfrost.gradle.multiversion.apivalidation
+package org.polyfrost.gradle.multiversion.apivalidation
 
 class Parser(
     private val defaultProjects: Set<String>

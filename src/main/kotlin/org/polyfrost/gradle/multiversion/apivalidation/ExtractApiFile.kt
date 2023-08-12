@@ -1,4 +1,4 @@
-package cc.polyfrost.gradle.multiversion.apivalidation
+package org.polyfrost.gradle.multiversion.apivalidation
 
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.RegularFileProperty

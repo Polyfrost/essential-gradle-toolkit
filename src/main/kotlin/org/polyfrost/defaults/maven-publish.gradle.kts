@@ -1,7 +1,6 @@
-package cc.polyfrost.defaults
+package org.polyfrost.defaults
 
-import cc.polyfrost.gradle.multiversion.Platform
-import net.fabricmc.loom.api.LoomGradleExtensionAPI
+import org.polyfrost.gradle.multiversion.Platform
 
 plugins {
     `maven-publish`
@@ -24,7 +23,7 @@ if (mavenUsername?.isNotBlank() == true && mavenPassword?.isNotBlank() == true) 
             register<MavenPublication>("maven") {
                 from(components.getByName("java"))
 
-                pluginManager.withPlugin("cc.polyfrost.multi-version") {
+                pluginManager.withPlugin("org.polyfrost.multi-version") {
                     val platform: Platform by extensions
                     val baseArtifactId = (if (parent == rootProject) rootProject.name.lowercase() else null)
                         ?: project.findProperty("baseArtifactId")?.toString()

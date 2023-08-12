@@ -1,6 +1,6 @@
-package cc.polyfrost.gradle.multiversion
+package org.polyfrost.gradle.multiversion
 
-import cc.polyfrost.gradle.util.compatibleKotlinMetadataVersion
+import org.polyfrost.gradle.util.compatibleKotlinMetadataVersion
 import kotlinx.metadata.KmClassifier
 import kotlinx.metadata.KmType
 import kotlinx.metadata.KmValueParameter

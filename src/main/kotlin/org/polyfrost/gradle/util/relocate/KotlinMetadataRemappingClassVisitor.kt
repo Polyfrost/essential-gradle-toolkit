@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package cc.polyfrost.gradle.util.relocate
+package org.polyfrost.gradle.util.relocate
 
 import org.objectweb.asm.AnnotationVisitor
 import org.objectweb.asm.ClassVisitor
