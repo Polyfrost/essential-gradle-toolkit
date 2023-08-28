@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.polyfrost"
-version = "0.2.6"
+version = "0.2.7"
 
 java.sourceCompatibility = JavaVersion.VERSION_16
 java.targetCompatibility = JavaVersion.VERSION_16
@@ -23,7 +23,7 @@ tasks.compileKotlin {
 java.withSourcesJar()
 
 repositories {
-    maven("https://repo.polyfrost.cc/releases")
+    maven("https://repo.polyfrost.org/releases")
 }
 
 dependencies {
@@ -51,7 +51,7 @@ dependencies {
 publishing {
     repositories {
         if (project.hasProperty("releasesUsername") && project.hasProperty("releasesPassword")) {
-            maven("https://repo.polyfrost.cc/releases") {
+            maven("https://repo.polyfrost.org/releases") {
                 name = "polyfrost"
                 credentials {
                     username = project.property("releasesUsername").toString()

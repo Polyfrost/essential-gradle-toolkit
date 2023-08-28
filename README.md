@@ -2,14 +2,14 @@
 A Gradle plugin providing various utility methods and common code required to set up multi-version Minecraft mods via [architectury-loom] and [preprocessor].
 
 ### Dependency
-<img alt="version badge" src="https://badges.modcore.net/maven-metadata/v?metadataUrl=https://repo.polyfrost.cc/releases/cc/polyfrost/polyfrost-gradle-toolkit/maven-metadata.xml">
+<img alt="version badge" src="https://badges.modcore.net/maven-metadata/v?metadataUrl=https://repo.polyfrost.org/releases/cc/polyfrost/polyfrost-gradle-toolkit/maven-metadata.xml">
 
 To use polyfrost-gradle-toolkit in your project, you need to add the following repositories to your `settings.gradle(.kts)` file:
 ```kotlin
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        maven("https://repo.polyfrost.cc/releases")
+        maven("https://repo.polyfrost.org/releases")
     }
     // We also recommend specifying your desired version here if you're using more than one of the plugins,
     // so you do not have to change the version in multilpe places when updating.
@@ -59,7 +59,7 @@ plugins {
     // This marks the current project as the root of a multi-version project.
     // Any project using `org.polyfrost.multi-version` must have a parent with this root plugin applied.
     // Advanced users may use multiple (potentially independent) multi-version trees in different sub-projects.
-    // This is currently equivalent to applying `com.replaymod.preprocess-root`.
+    // This is currently equivalent to applying `xyz.deftu.preprocess-root`.
     id("org.polyfrost.multi-version.root")
 }
 
@@ -96,7 +96,7 @@ plugins {
     // If you're using Kotlin, it needs to be applied before the multi-version plugin
     kotlin("jvm")
     // Apply the multi-version plugin, this does all the configuration necessary for the preprocessor to
-    // work. In particular it also applies `com.replaymod.preprocess`.
+    // work. In particular it also applies `xyz.deftu.preprocess`.
     // In addition it primarily also provides a `platform` extension which you can use in this build script
     // to get the version and mod loader of the current project.
     id("org.polyfrost.multi-version")

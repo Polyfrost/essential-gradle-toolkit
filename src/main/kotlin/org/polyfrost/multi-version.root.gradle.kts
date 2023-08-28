@@ -3,7 +3,7 @@ package org.polyfrost
 import org.polyfrost.gradle.util.checkJavaVersion
 
 plugins {
-    id("com.replaymod.preprocess-root")
+    id("xyz.deftu.gradle.preprocess-root")
 }
 
 checkJavaVersion(JavaVersion.VERSION_16)
