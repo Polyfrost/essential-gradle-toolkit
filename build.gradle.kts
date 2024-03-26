@@ -4,21 +4,7 @@ plugins {
 }
 
 group = "org.polyfrost"
-version = "0.2.9"
-
-java.sourceCompatibility = JavaVersion.VERSION_16
-java.targetCompatibility = JavaVersion.VERSION_16
-
-tasks.withType(JavaCompile::class).configureEach {
-    options.encoding = "UTF-8"
-    options.release.set(16)
-}
-
-tasks.compileKotlin {
-    kotlinOptions {
-        jvmTarget = "16"
-    }
-}
+version = "0.3.0"
 
 java.withSourcesJar()
 
