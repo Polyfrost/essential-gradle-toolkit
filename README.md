@@ -190,7 +190,7 @@ versions/*/api/
 Applies various (partially opinionated) defaults to your project:
 - [repo](#ccpolyfrostdefaultsrepo)
 - [java](#ccpolyfrostdefaultsjava) (if the `java` plugin is applied)
-- [loom](#ccpolyfrostdefaultsloom) (if the `gg.essential.loom` plugin is applied)
+- [loom](#ccpolyfrostdefaultsloom) (if the `org.polyfrost.loom` plugin is applied)
 
 ### org.polyfrost.defaults.java
 
@@ -199,7 +199,7 @@ Sets defaults related to the `java` Gradle plugin:
 
 ### org.polyfrost.defaults.loom
 
-Sets defaults related to the `gg.essential.loom` ([architectury-loom]) Gradle plugin.
+Sets defaults related to the `org.polyfrost.loom` ([architectury-loom]) Gradle plugin.
 You can overwrite all of these by setting the given property in the project's `gradle.properties`:
 - Minecraft version (`polyfrost.defaults.loom.minecraft`)
 - Mappings (`polyfrost.defaults.loom.mappings`), special values:
@@ -384,5 +384,5 @@ See `LICENSE.md` for the full license text.
 [binary-compatibility-validator]: https://github.com/Kotlin/binary-compatibility-validator
 [MixinExtras]: https://github.com/LlamaLad7/MixinExtras
 [Gradle artifact transform]: https://docs.gradle.org/current/userguide/artifact_transforms.html
-[UniversalCraft]: https://github.com/EssentialGG/UniversalCraft
+[UniversalCraft]: https://github.com/Polyfrost/UniversalCraft
 [Elementa]: https://github.com/EssentialGG/Elementa

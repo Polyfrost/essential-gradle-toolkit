@@ -4,6 +4,7 @@ import org.polyfrost.gradle.util.compatibleKotlinMetadataVersion
 import kotlinx.metadata.KmClassifier
 import kotlinx.metadata.KmType
 import kotlinx.metadata.KmValueParameter
+import kotlinx.metadata.jvm.JvmMetadataVersion
 import kotlinx.metadata.jvm.KotlinClassMetadata
 import org.gradle.api.Project
 import org.gradle.api.artifacts.transform.InputArtifact
@@ -175,15 +176,16 @@ abstract class StripReferencesTransform : TransformAction<StripReferencesTransfo
                 var annotation = kotlinMetadata ?: return
 
                 val extraInt = annotation.extraInt
-                val metadataVersion = compatibleKotlinMetadataVersion(annotation.metadataVersion)
+                val metadataVersion = compatibleKotlinMetadataVersion(
+                    JvmMetadataVersion(annotation.metadataVersion[0], annotation.metadataVersion[1], annotation.metadataVersion[2]))
 
-                when (val metadata = KotlinClassMetadata.read(annotation)) {
+                when (val metadata = KotlinClassMetadata.readLenient(annotation)) {
                     is KotlinClassMetadata.Class -> {
                         val cls = metadata.kmClass
                         cls.supertypes.removeIf { excluded(it.classifier) }
                         cls.properties.removeIf { excluded(it.returnType) || excluded(it.receiverParameterType) }
                         cls.functions.removeIf { excluded(it.returnType) || excluded(it.receiverParameterType) || excluded(it.valueParameters) }
-                        annotation = KotlinClassMetadata.writeClass(cls, metadataVersion, extraInt)
+                        annotation = KotlinClassMetadata.Class(cls, metadataVersion, extraInt).write()
                     }
                     else -> {}
                 }

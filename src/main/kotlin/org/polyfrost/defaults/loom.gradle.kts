@@ -5,7 +5,7 @@ import org.polyfrost.gradle.multiversion.Platform
 import org.polyfrost.gradle.util.setupLoomPlugin
 
 plugins {
-    id("gg.essential.loom")
+    id("org.polyfrost.loom")
 }
 val platform = Platform.of(project)
 

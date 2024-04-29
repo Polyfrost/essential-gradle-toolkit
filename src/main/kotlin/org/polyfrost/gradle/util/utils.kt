@@ -1,5 +1,6 @@
 package org.polyfrost.gradle.util
 
+import kotlinx.metadata.jvm.JvmMetadataVersion
 import org.polyfrost.gradle.multiversion.Platform
 import net.fabricmc.loom.api.LoomGradleExtensionAPI
 import net.fabricmc.loom.bootstrap.LoomGradlePluginBootstrap
@@ -25,10 +26,10 @@ internal fun checkJavaVersion(minVersion: JavaVersion) {
     }
 }
 
-internal fun compatibleKotlinMetadataVersion(version: IntArray): IntArray {
+internal fun compatibleKotlinMetadataVersion(version: JvmMetadataVersion): JvmMetadataVersion {
     // Upgrade versions older than 1.4 to 1.4 in accordance with https://youtrack.jetbrains.com/issue/KT-41011
-    if (version.size < 2 || version[0] < 1 || version[0] <= 1 && version[1] < 4) {
-        return intArrayOf(1, 4)
+    if (version.major < 1 || version.minor < 4) {
+        return JvmMetadataVersion(1, 4)
     }
     return version
 }
