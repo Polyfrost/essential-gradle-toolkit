@@ -34,7 +34,15 @@ internal fun compatibleKotlinMetadataVersion(version: IntArray): JvmMetadataVers
 }
 
 internal fun Project.setupLoomPlugin(platform: Platform, block: LoomGradleExtensionAPI.(platform: Platform) -> Unit) {
-    extra.set("loom.platform", if (platform.isForge) "forge" else "fabric")
+    extra.set(
+        "loom.platform",
+        when {
+            platform.isFabric -> "fabric"
+            platform.isForge -> "forge"
+            platform.isNeoForge -> "neoforge"
+            else -> throw IllegalStateException("Could not determine loader for ${project.name}.")
+        }
+    )
 
     apply<LoomGradlePluginBootstrap>()
 

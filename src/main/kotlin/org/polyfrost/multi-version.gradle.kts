@@ -32,6 +32,8 @@ fun setupPreprocessPlugin() {
         vars.put("MC", mcVersion)
         vars.put("FABRIC", if (platform.isFabric) 1 else 0)
         vars.put("FORGE", if (platform.isForge) 1 else 0)
+        vars.put("NEOFORGE", if (platform.isNeoForge) 1 else 0)
+        vars.put("FORGELIKE", if (platform.isForgeLike) 1 else 0)
         vars.put("MODERN", if (platform.mcVersion >= 11300) 1 else 0)
     }
 }
