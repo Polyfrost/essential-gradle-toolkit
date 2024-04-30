@@ -28,10 +28,6 @@ import kotlinx.metadata.jvm.JvmMetadataVersion
 import org.polyfrost.gradle.util.compatibleKotlinMetadataVersion
 import kotlinx.metadata.jvm.KotlinClassMetadata
 import kotlinx.metadata.jvm.Metadata
-// TODO ideally we shouldn't be depending on loom internals but the referenced class depends on a bunch of internals of
-//  kotlinx-metadata-jvm because the api is insufficient, meaning some internal dependencies will be going on anyway so
-//  we may as well just let loom deal with it instead of having to copy over loom's updates every time
-import net.fabricmc.loom.kotlin.remapping.KotlinClassRemapper
 import org.objectweb.asm.AnnotationVisitor
 import org.objectweb.asm.Opcodes
 import org.objectweb.asm.commons.Remapper
@@ -40,11 +36,11 @@ import org.objectweb.asm.tree.AnnotationNode
 internal class KotlinClassMetadataRemappingAnnotationVisitor(private val remapper: Remapper, val next: AnnotationVisitor, val className: String?) :
     AnnotationNode(Opcodes.ASM9, KotlinMetadataRemappingClassVisitor.ANNOTATION_DESCRIPTOR) {
 
-    private var _name: String? = null
-
-    override fun visit(name: String?, value: Any?) {
+    override fun visit(
+        name: String?,
+        value: Any?,
+    ) {
         super.visit(name, value)
-        this._name = name
     }
 
     override fun visitEnd() {
@@ -57,7 +53,7 @@ internal class KotlinClassMetadataRemappingAnnotationVisitor(private val remappe
             is KotlinClassMetadata.Class -> {
                 var klass = metadata.kmClass
                 klass = KotlinClassRemapper(remapper).remap(klass)
-                val remapped = KotlinClassMetadata.Class(klass, metadataVersion, header.extraInt).write()
+                val remapped = KotlinClassMetadata.Class(klass, metadataVersion, metadata.flags).write()
                 writeClassHeader(remapped)
             }
             is KotlinClassMetadata.SyntheticClass -> {
@@ -65,7 +61,7 @@ internal class KotlinClassMetadataRemappingAnnotationVisitor(private val remappe
 
                 if (klambda != null) {
                     klambda = KotlinClassRemapper(remapper).remap(klambda)
-                    val remapped = KotlinClassMetadata.SyntheticClass(klambda, metadataVersion, header.extraInt).write()
+                    val remapped = KotlinClassMetadata.SyntheticClass(klambda, metadataVersion, metadata.flags).write()
                     writeClassHeader(remapped)
                 } else {
                     accept(next)
@@ -74,13 +70,19 @@ internal class KotlinClassMetadataRemappingAnnotationVisitor(private val remappe
             is KotlinClassMetadata.FileFacade -> {
                 var kpackage = metadata.kmPackage
                 kpackage = KotlinClassRemapper(remapper).remap(kpackage)
-                val remapped = KotlinClassMetadata.FileFacade(kpackage, metadataVersion, header.extraInt).write()
+                val remapped = KotlinClassMetadata.FileFacade(kpackage, metadataVersion, metadata.flags).write()
                 writeClassHeader(remapped)
             }
             is KotlinClassMetadata.MultiFileClassPart -> {
                 var kpackage = metadata.kmPackage
                 kpackage = KotlinClassRemapper(remapper).remap(kpackage)
-                val remapped = KotlinClassMetadata.MultiFileClassPart(kpackage, metadata.facadeClassName, metadataVersion, header.extraInt).write()
+                val remapped =
+                    KotlinClassMetadata.MultiFileClassPart(
+                        kpackage,
+                        metadata.facadeClassName,
+                        metadataVersion,
+                        metadata.flags,
+                    ).write()
                 writeClassHeader(remapped)
             }
             is KotlinClassMetadata.MultiFileClassFacade, is KotlinClassMetadata.Unknown -> {

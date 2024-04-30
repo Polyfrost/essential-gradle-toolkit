@@ -103,8 +103,8 @@ private fun merge(targetClass: ClassNode, sourceClass: ClassNode) {
 
     val targetAnnotation = targetClass.kotlinMetadata ?: return
     val sourceAnnotation = sourceClass.kotlinMetadata ?: return
-    val targetMetadata = KotlinClassMetadata.readLenient(targetAnnotation)
-    val sourceMetadata = KotlinClassMetadata.readLenient(sourceAnnotation)
+    val targetMetadata = KotlinClassMetadata.readStrict(targetAnnotation)
+    val sourceMetadata = KotlinClassMetadata.readStrict(sourceAnnotation)
 
     val extraInt = sourceAnnotation.extraInt
     val metadataVersion = compatibleKotlinMetadataVersion(

@@ -25,13 +25,12 @@ internal fun checkJavaVersion(minVersion: JavaVersion) {
         ).joinToString("\n"))
     }
 }
-
-internal fun compatibleKotlinMetadataVersion(version: JvmMetadataVersion): JvmMetadataVersion {
+internal fun compatibleKotlinMetadataVersion(version: IntArray): JvmMetadataVersion {
     // Upgrade versions older than 1.4 to 1.4 in accordance with https://youtrack.jetbrains.com/issue/KT-41011
-    if (version.major < 1 || version.minor < 4) {
+    if (version.size < 2 || version[0] < 1 || version[0] <= 1 && version[1] < 4) {
         return JvmMetadataVersion(1, 4)
     }
-    return version
+    return JvmMetadataVersion(version[0], version[1], version[2])
 }
 
 internal fun Project.setupLoomPlugin(platform: Platform, block: LoomGradleExtensionAPI.(platform: Platform) -> Unit) {
