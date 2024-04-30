@@ -47,7 +47,7 @@ internal class KotlinClassMetadataRemappingAnnotationVisitor(private val remappe
         super.visitEnd()
 
         val header = readHeader() ?: return
-        val metadataVersion = compatibleKotlinMetadataVersion(JvmMetadataVersion(header.metadataVersion[0], header.metadataVersion[1], header.metadataVersion[2]))
+        val metadataVersion = compatibleKotlinMetadataVersion(header.metadataVersion)
 
         when (val metadata = KotlinClassMetadata.readLenient(header)) {
             is KotlinClassMetadata.Class -> {

@@ -176,8 +176,7 @@ abstract class StripReferencesTransform : TransformAction<StripReferencesTransfo
                 var annotation = kotlinMetadata ?: return
 
                 val extraInt = annotation.extraInt
-                val metadataVersion = compatibleKotlinMetadataVersion(
-                    JvmMetadataVersion(annotation.metadataVersion[0], annotation.metadataVersion[1], annotation.metadataVersion[2]))
+                val metadataVersion = compatibleKotlinMetadataVersion(annotation.metadataVersion)
 
                 when (val metadata = KotlinClassMetadata.readLenient(annotation)) {
                     is KotlinClassMetadata.Class -> {

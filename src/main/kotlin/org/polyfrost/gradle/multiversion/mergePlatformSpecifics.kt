@@ -107,8 +107,7 @@ private fun merge(targetClass: ClassNode, sourceClass: ClassNode) {
     val sourceMetadata = KotlinClassMetadata.readStrict(sourceAnnotation)
 
     val extraInt = sourceAnnotation.extraInt
-    val metadataVersion = compatibleKotlinMetadataVersion(
-        JvmMetadataVersion(sourceAnnotation.metadataVersion[0], sourceAnnotation.metadataVersion[1], sourceAnnotation.metadataVersion[2]))
+    val metadataVersion = compatibleKotlinMetadataVersion(sourceAnnotation.metadataVersion)
 
     val mergedMetadata = when {
         sourceMetadata is KotlinClassMetadata.Class && targetMetadata is KotlinClassMetadata.Class -> {
