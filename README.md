@@ -59,7 +59,7 @@ plugins {
     // This marks the current project as the root of a multi-version project.
     // Any project using `org.polyfrost.multi-version` must have a parent with this root plugin applied.
     // Advanced users may use multiple (potentially independent) multi-version trees in different sub-projects.
-    // This is currently equivalent to applying `xyz.deftu.preprocess-root`.
+    // This is currently equivalent to applying `dev.deftu.preprocess-root`.
     id("org.polyfrost.multi-version.root")
 }
 
@@ -96,7 +96,7 @@ plugins {
     // If you're using Kotlin, it needs to be applied before the multi-version plugin
     kotlin("jvm")
     // Apply the multi-version plugin, this does all the configuration necessary for the preprocessor to
-    // work. In particular it also applies `xyz.deftu.preprocess`.
+    // work. In particular it also applies `dev.deftu.preprocess`.
     // In addition it primarily also provides a `platform` extension which you can use in this build script
     // to get the version and mod loader of the current project.
     id("org.polyfrost.multi-version")
