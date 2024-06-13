@@ -37,6 +37,7 @@ val revisions = mutableListOf<Revision>()
 // one until they opt-in to the new one.
 revisions.add(Revision(
     yarn = mapOf(
+        12100 to "1.21+build.1:v2",
         12006 to "1.20.6+build.1:v2",
         12005 to "1.20.5+build.1:v2",
         12004 to "1.20.4+build.3:v2",
@@ -78,6 +79,7 @@ revisions.add(Revision(
     ),
     fabricLoader = "0.13.3",
     forge = mapOf(
+        12100 to "1.21-51.0.3",
         12006 to "1.20.6-50.1.3",
         12004 to "1.20.4-49.0.48",
         12003 to "1.20.3-49.0.2",
@@ -107,6 +109,7 @@ revisions.add(Revision(
         10710 to "1.7.10-10.13.4.1558-1.7.10",
     ),
     neoForge = mapOf(
+        12100 to "21.0.0-beta",
         12006 to "20.6.7-beta",
         12005 to "20.5.21-beta",
         12004 to "20.4.234",
@@ -183,6 +186,10 @@ revisions.add(revisions.last().update(
         10904 to "1.9.4-12.17.0.2317",
         10710 to "1.7.10-10.13.4.1614-1.7.10",
     ),
+))
+
+revisions.add(revisions.last().update(
+    fabricLoader = "0.15.11"
 ))
 
 val revisionId = findProperty("polyfrost.defaults.loom")?.toString() ?: throw GradleException("""
