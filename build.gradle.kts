@@ -9,6 +9,7 @@ version = "0.6.0"
 java.withSourcesJar()
 
 repositories {
+    gradlePluginPortal()
     maven("https://repo.polyfrost.org/releases")
 }
 
