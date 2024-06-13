@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "org.polyfrost"
-version = "0.5.2"
+version = "0.6.0"
 
 java.withSourcesJar()
 
