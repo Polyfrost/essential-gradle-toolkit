@@ -1,6 +1,6 @@
 package org.polyfrost.gradle.multiversion.apivalidation
 
-import gg.essential.gradle.util.multiversionChildProjects
+import org.polyfrost.gradle.util.multiversionChildProjects
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.file.RegularFileProperty
