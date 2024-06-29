@@ -105,12 +105,14 @@ fun inheritConfigurationFrom(parent: Project) {
     }
 
     afterEvaluate {
-        tasks.withType<KotlinCompile> {
-            kotlinOptions {
-                if (moduleName == null && "-module-name" !in freeCompilerArgs) {
-                    moduleName = project.findProperty("baseArtifactId")?.toString()
-                            ?: parentBase?.archivesName?.orNull
-                            ?: parent.name.lowercase()
+        pluginManager.withPlugin("kotlin") {
+            tasks.withType<KotlinCompile> {
+                kotlinOptions {
+                    if (moduleName == null && "-module-name" !in freeCompilerArgs) {
+                        moduleName = project.findProperty("baseArtifactId")?.toString()
+                                ?: parentBase?.archivesName?.orNull
+                                ?: parent.name.toLowerCase()
+                    }
                 }
             }
         }
