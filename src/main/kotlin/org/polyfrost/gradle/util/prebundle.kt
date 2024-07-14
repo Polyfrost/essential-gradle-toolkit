@@ -45,10 +45,20 @@ fun Project.prebundle(configuration: Configuration, jijName: String? = null, con
 private fun Project.bundle(configuration: Configuration, filter: PatternSet, jijName: String?, output: File, logger: Logger) {
     output.parentFile.mkdirs()
 
-    val hash = configuration.computeHash().apply {
+    val computedHash = configuration.computeHash()
+
+    if (computedHash == null) {
+        logger.error("Something with computing the hash for ${configuration.name} went wrong, skipping prebundling so it can rerun sometime later.\n" +
+                "This is typically because you are including a project as a dependency to prebundle and it isn't built yet...\n" +
+                "To fix this, you have to build the project that this prebundle depends on, and sync the project again.\n" +
+                "If this still breaks, make a ticket at https://polyfrost.org/discord")
+        return
+    }
+
+    val hash = computedHash.apply {
         update(filter.hashCode().toBigInteger().toByteArray())
         update(jijName?.toByteArray() ?: byteArrayOf())
-        update(byteArrayOf(0, 0, 0, 2)) // code version, incremented with each semantic change
+        update(byteArrayOf(0, 0, 0, 3)) // code version, incremented with each semantic change
     }.digest()
     val hashFile = output.resolveSibling(output.name + ".md5")
     if (hashFile.exists() && hashFile.readBytes().contentEquals(hash) && output.exists()) {
@@ -87,13 +97,21 @@ private fun Project.bundle(configuration: Configuration, filter: PatternSet, jij
     logger.lifecycle(":prepared ${configuration.name} jar in $stopwatch")
 }
 
-private fun Configuration.computeHash(): MessageDigest = files
-    .sortedBy { it.name }
-    .fold(MessageDigest.getInstance("MD5")) { digest, file ->
-        // if the file path already contains a hash, that's good enough, otherwise we need to read its contents
-        digest.update(file.findHashInPath()?.toByteArray() ?: file.readBytes())
-        digest
-    }
+private fun Configuration.computeHash(): MessageDigest? = runCatching {
+    files
+        .sortedBy { it.name }
+        .fold(MessageDigest.getInstance("MD5")) { digest, file ->
+            // if the file path already contains a hash, that's good enough, otherwise we need to read its contents
+            val bytes = (file.findHashInPath()?.toByteArray() ?: if (file.exists()) file.readBytes() else null)
+            if (bytes != null) {
+                digest.update(bytes)
+            } else {
+                // this shouldn't happen... return null just in case
+                return null
+            }
+            digest
+        }
+}.getOrNull()
 
 private fun File.findHashInPath(): String? {
     val path = absolutePath.replace('\\', '/')
