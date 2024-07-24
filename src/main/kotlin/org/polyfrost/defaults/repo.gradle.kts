@@ -1,5 +1,5 @@
 package org.polyfrost.defaults
 
 repositories {
-    maven("https://repo.polyfrost.cc/releases")
+    maven("https://repo.polyfrost.org/releases")
 }
