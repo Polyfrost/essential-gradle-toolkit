@@ -209,7 +209,7 @@ fun prop(property: String, default: String?) =
 
 if (revisions.indexOf(revision) >= 1 && platform.isLegacyFabric) {
     repositories {
-        maven("https://repo.polyfrost.cc/releases")
+        maven("https://repo.polyfrost.org/releases")
     }
 
     setupLoomPlugin(platform) { platform: Platform ->
