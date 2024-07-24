@@ -51,7 +51,7 @@ internal fun Project.setupLoomPlugin(platform: Platform, block: LoomGradleExtens
 val CONSTANT_TIME_FOR_ZIP_ENTRIES = GregorianCalendar(1980, Calendar.FEBRUARY, 1, 0, 0, 0).timeInMillis
 
 val Project.isMultiversionChildProject
-    get() = plugins.hasPlugin("gg.essential.multi-version")
+    get() = plugins.hasPlugin("org.polyfrost.multi-version")
 
 val Project.multiversionChildProjects
     get() = childProjects.filter { it.value.isMultiversionChildProject }

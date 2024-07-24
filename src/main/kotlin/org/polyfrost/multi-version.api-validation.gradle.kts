@@ -20,7 +20,7 @@ val apiDump by tasks.registering(MergeApiFiles::class) {
 }
 
 subprojects {
-    pluginManager.withPlugin("gg.essential.multi-version") {
+    pluginManager.withPlugin("org.polyfrost.multi-version") {
         val projectApiDir = project.file("api").also { it.mkdirs() }
         val extractApiDefinition by tasks.registering(ExtractApiFile::class) {
             selector.set(project.name)
