@@ -4,8 +4,6 @@ import org.polyfrost.gradle.multiversion.Platform
 import org.polyfrost.gradle.util.setupLoomPlugin
 import com.replaymod.gradle.preprocess.PreprocessExtension
 import com.replaymod.gradle.preprocess.PreprocessPlugin
-import net.fabricmc.loom.api.LoomGradleExtensionAPI
-import net.fabricmc.loom.bootstrap.LoomGradlePluginBootstrap
 import org.gradle.api.Project
 import org.gradle.api.plugins.BasePluginExtension
 import org.gradle.api.plugins.JavaPluginExtension
@@ -35,7 +33,7 @@ fun setupPreprocessPlugin() {
     apply<PreprocessPlugin>()
 
     extensions.configure<PreprocessExtension> {
-        vars.put("MC", mcVersion)
+        vars.put("MC", platform.mcVersion)
         vars.put("FABRIC", if (platform.isFabric) 1 else 0)
         vars.put("FORGE", if (platform.isForge) 1 else 0)
         vars.put("NEOFORGE", if (platform.isNeoForge) 1 else 0)

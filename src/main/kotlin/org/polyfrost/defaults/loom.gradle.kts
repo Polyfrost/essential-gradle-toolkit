@@ -205,16 +205,17 @@ revisions.add(revisions.last().update(
     parchment = mapOf(
         12100 to "2024.07.28",
         12006 to "2024.06.16",
-        11204 to "2024.04.14",
-        11203 to "2023.12.31",
-        11202 to "2023.12.10",
-        11201 to "2023.09.03",
+        12004 to "2024.04.14",
+        12003 to "2023.12.31",
+        12002 to "2023.12.10",
+        12001 to "2023.09.03",
         11904 to "2023.06.26",
         11903 to "2023.04.25",
         11902 to "2022.11.27",
         11802 to "2022.11.06",
+        11801 to "2022.03.06",
         11701 to "2021.12.12",
-        11605 to "2021.03.06",
+        11605 to "2022.03.06",
     )
 ))
 
@@ -260,7 +261,7 @@ dependencies {
             revision.mcp[platform.mcVersion]?.let { "de.oceanlabs.mcp:mcp_$it" }
         else -> "official"
     })
-    val parchmentStr: String? = if (revisionId.toInt() >= 4 && platform.mcVersion >= 11605) prop("parchment", revision.parchment[platform.mcVersion]?.let { "org.parchmentmc.data:parchment-${platform.mcVersionStr}:$it@zip" }) else null
+    val parchmentStr: String? = if (revisionId.toInt() >= 4 && platform.mcVersion >= 11605) prop("parchment", revision.parchment[platform.mcVersion]?.let { "org.parchmentmc.data:parchment-${platform.mcVersionStr}:$it@zip" }).ifEmpty { null } else null
     if (mappingsStr in listOf("official", "mojang", "mojmap")) {
         mappings(
             if (parchmentStr != null) {
@@ -293,7 +294,7 @@ dependencies {
                 repositories {
                     maven("https://raw.githubusercontent.com/BleachDev/cursed-mappings/main/")
                 }
-                mappings("net.legacyfabric:yarn:${platform.mcVersion}+build.mcp")
+                mappings("net.legacyfabric:yarn:${platform.mcVersionStr}+build.mcp")
             } else {
                 revision.mcp[platform.mcVersion]?.let { mappings("de.oceanlabs.mcp:mcp_$it") }
             }
