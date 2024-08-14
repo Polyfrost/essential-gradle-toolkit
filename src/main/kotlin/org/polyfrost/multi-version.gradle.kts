@@ -4,6 +4,12 @@ import org.polyfrost.gradle.multiversion.Platform
 import org.polyfrost.gradle.util.setupLoomPlugin
 import com.replaymod.gradle.preprocess.PreprocessExtension
 import com.replaymod.gradle.preprocess.PreprocessPlugin
+import net.fabricmc.loom.api.LoomGradleExtensionAPI
+import net.fabricmc.loom.bootstrap.LoomGradlePluginBootstrap
+import org.gradle.api.Project
+import org.gradle.api.plugins.BasePluginExtension
+import org.gradle.api.plugins.JavaPluginExtension
+import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -112,7 +118,7 @@ fun inheritConfigurationFrom(parent: Project) {
                     if (moduleName == null && "-module-name" !in freeCompilerArgs) {
                         moduleName = project.findProperty("baseArtifactId")?.toString()
                                 ?: parentBase?.archivesName?.orNull
-                                ?: parent.name.toLowerCase()
+                                ?: parent.name.lowercase()
                     }
                 }
             }
