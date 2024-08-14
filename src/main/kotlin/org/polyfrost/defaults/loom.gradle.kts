@@ -1,6 +1,10 @@
 package org.polyfrost.defaults
 
 import dev.architectury.pack200.java.Pack200Adapter
+import gradle.kotlin.dsl.accessors._0935894d714bf6b98fac60b9fc45a2f5.loom
+import gradle.kotlin.dsl.accessors._0935894d714bf6b98fac60b9fc45a2f5.mappings
+import gradle.kotlin.dsl.accessors._0935894d714bf6b98fac60b9fc45a2f5.minecraft
+import gradle.kotlin.dsl.accessors._0935894d714bf6b98fac60b9fc45a2f5.modImplementation
 import org.polyfrost.gradle.multiversion.Platform
 import org.polyfrost.gradle.util.setupLoomPlugin
 
@@ -15,6 +19,7 @@ data class Revision(
     val fabricLoader: String,
     val forge: Map<Int, String>,
     val neoForge: Map<Int, String>,
+    val parchment: Map<Int, String> = emptyMap(), // Parchment support wasn't added until revision 4
 ) {
     fun update(
         yarn: Map<Int, String> = emptyMap(),
@@ -22,12 +27,14 @@ data class Revision(
         fabricLoader: String = this.fabricLoader,
         forge: Map<Int, String> = emptyMap(),
         neoForge: Map<Int, String> = emptyMap(),
+        parchment: Map<Int, String> = emptyMap(),
     ) = Revision(
         this.yarn + yarn,
         this.mcp + mcp,
         fabricLoader,
         this.forge + forge,
         this.neoForge + neoForge,
+        this.parchment + parchment
     )
 }
 val revisions = mutableListOf<Revision>()
@@ -192,6 +199,23 @@ revisions.add(revisions.last().update(
     fabricLoader = "0.15.11"
 ))
 
+revisions.add(revisions.last().update(
+    parchment = mapOf(
+        12100 to "2024.07.28",
+        12006 to "2024.06.16",
+        11204 to "2024.04.14",
+        11203 to "2023.12.31",
+        11202 to "2023.12.10",
+        11201 to "2023.09.03",
+        11904 to "2023.06.26",
+        11903 to "2023.04.25",
+        11902 to "2022.11.27",
+        11802 to "2022.11.06",
+        11701 to "2021.12.12",
+        11605 to "2021.03.06",
+    )
+))
+
 val revisionId = findProperty("polyfrost.defaults.loom")?.toString() ?: throw GradleException("""
     No loom defaults version set.
     You need to set `polyfrost.defaults.loom` in the project's `gradle.properties` file to a specific revision,
@@ -234,10 +258,58 @@ dependencies {
             revision.mcp[platform.mcVersion]?.let { "de.oceanlabs.mcp:mcp_$it" }
         else -> "official"
     })
+    val parchmentStr: String? = if (revisionId.toInt() >= 4 && platform.mcVersion >= 11605) prop("parchment", revision.parchment[platform.mcVersion]?.let { "org.parchmentmc.data:parchment-${platform.mcVersionStr}:$it@zip" }) else null
     if (mappingsStr in listOf("official", "mojang", "mojmap")) {
-        mappings(loom.officialMojangMappings())
+        mappings(
+            if (parchmentStr != null) {
+                loom.layered {
+                    officialMojangMappings()
+                    repositories {
+                        maven("https://maven.parchmentmc.org")
+                    }
+                    parchment(parchmentStr)
+                }
+            } else {
+                loom.officialMojangMappings()
+            })
+    } else if (mappingsStr == "official-like") {
+        if (platform.mcMinor > 12) {
+            mappings(
+                if (parchmentStr != null) {
+                    loom.layered {
+                        officialMojangMappings()
+                        repositories {
+                            maven("https://maven.parchmentmc.org")
+                        }
+                        parchment(parchmentStr)
+                    }
+                } else {
+                    loom.officialMojangMappings()
+                })
+        } else {
+            if (platform.isFabric) {
+                repositories {
+                    maven("https://raw.githubusercontent.com/BleachDev/cursed-mappings/main/")
+                }
+                mappings("net.legacyfabric:yarn:${platform.mcVersion}+build.mcp")
+            } else {
+                revision.mcp[platform.mcVersion]?.let { mappings("de.oceanlabs.mcp:mcp_$it") }
+            }
+        }
     } else if (mappingsStr.isNotBlank()) {
-        mappings(mappingsStr)
+        mappings(
+            if (parchmentStr != null) {
+                loom.layered {
+                    mappings(mappingsStr)
+                    repositories {
+                        maven("https://maven.parchmentmc.org")
+                    }
+                    parchment(parchmentStr)
+                }
+            } else {
+                mappingsStr
+            }
+        )
     }
 
     if (platform.isFabric) {
